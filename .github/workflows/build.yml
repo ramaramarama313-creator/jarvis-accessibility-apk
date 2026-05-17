@@ -4,7 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Create Gradle Settings
       run: echo "include ':app'" > settings.gradle
     - name: Set up JDK 11
@@ -17,8 +17,7 @@ jobs:
     - name: Build APK
       run: gradle :app:assembleDebug
     - name: Upload APK
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: jarvis-app
         path: app/build/outputs/apk/debug/*.apk
-
