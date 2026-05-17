@@ -1,0 +1,24 @@
+name: Build Jarvis APK
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Create Gradle Settings
+      run: echo "include ':app'" > settings.gradle
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+    - name: Build APK
+      run: gradle :app:assembleDebug
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: jarvis-app
+        path: app/build/outputs/apk/debug/*.apk
+
